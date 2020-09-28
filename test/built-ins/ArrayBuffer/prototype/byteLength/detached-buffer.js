@@ -2,13 +2,11 @@
 // This code is governed by the BSD license found in the LICENSE file.
 /*---
 esid: sec-get-arraybuffer.prototype.bytelength
-description: Returns 0 if the buffer is detached
+description: Returns 0 if the instance has a detached buffer
 info: |
-  24.1.4.1 get ArrayBuffer.prototype.byteLength
-
-  1. Let O be the this value.
+  get ArrayBuffer.prototype.byteLength
   ...
-  4. If IsDetachedBuffer(O) is true, throw a TypeError exception.
+  If IsDetachedBuffer(buffer) is true, return 0.
   ...
 includes: [detachArrayBuffer.js]
 ---*/
@@ -17,6 +15,4 @@ var ab = new ArrayBuffer(1);
 
 $DETACHBUFFER(ab);
 
-assert.throws(TypeError, function() {
-  ab.byteLength;
-});
+assert.sameValue(ab.byteLength, 0);
